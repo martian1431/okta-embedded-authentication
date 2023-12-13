@@ -1,0 +1,38 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon aria-hidden="true">drivers_license</mat-icon>
+      My User Profile (ID Token Claims)
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      Below is the information from your ID Token, which was obtained during the
+      <a href="https://developer.okta.com/docs/guides/implement-auth-code-pkce"
+        >PKCE Flow</a
+      >
+      and is now stored in local storage.
+    </p>
+    <p>
+      This route is protected with the <code>OktaAuthGuard</code> component,
+      which will ensure that this page cannot be accessed until you have
+      authenticated.
+    </p>
+  </mat-card-content>
+</mat-card>
+
+<mat-table [dataSource]="claims" class="mat-elevation-z8">
+  <ng-container matColumnDef="claim">
+    <mat-header-cell *matHeaderCellDef>Claim</mat-header-cell>
+    <mat-cell *matCellDef="let claim">{{ claim.claim }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="value">
+    <mat-header-cell *matHeaderCellDef>Value</mat-header-cell>
+    <mat-cell *matCellDef="let claim" [attr.id]="'claim-' + claim.claim">
+      {{ claim.value }}
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['claim', 'value']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['claim', 'value']"></mat-row>
+</mat-table>
